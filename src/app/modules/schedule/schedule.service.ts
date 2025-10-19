@@ -9,7 +9,7 @@ const createScheduleIntoDB = async (data: any) => {
 };
 
 const getAllSchedulesFromDB = async () => {
-    const result = await ScheduleModel.find();
+    const result = await ScheduleModel.find().populate('trainer');
     if (!result) {
         throw new Error("No schedules found");
     }
@@ -17,7 +17,7 @@ const getAllSchedulesFromDB = async () => {
 };
 
 const getScheduleByIdFromDB = async (id: string) => {
-    const result = await ScheduleModel.findById(id);
+    const result = await ScheduleModel.findById(id).populate('trainer');
     if (!result) {
         throw new Error("This schedule does not exist");
     }
