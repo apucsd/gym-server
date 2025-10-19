@@ -1,13 +1,12 @@
 services:
   - type: web
     name: gym-server
-    env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    env: docker
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: NODE_VERSION
-        value: 18.x
-      - key: PORT
-        value: 10000
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
+    autoDeploy: true

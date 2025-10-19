@@ -1,23 +1,35 @@
-# Use Node.js 18 Alpine as base image
-FROM node:18-alpine
-
-# Set working directory
+# Build stage
+FROM node:18-alpine AS builder
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
+COPY tsconfig*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
-# Copy the rest of the application
-COPY . .
+# Copy source files
+COPY src/ ./src
 
 # Build the application
 RUN npm run build
+
+# Production stage
+FROM node:18-alpine
+WORKDIR /usr/src/app
+
+# Copy package files
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# Copy built files from builder
+COPY --from=builder /usr/src/app/dist ./dist
 
 # Expose the port the app runs on
 EXPOSE 10000
 
 # Command to run the application
-CMD ["npm", "start"]
+CMD ["node", "dist/server.js"]
