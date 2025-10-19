@@ -41,15 +41,28 @@ const createBooking = async (bookingData: IBooking): Promise<IBooking> => {
       return booking;
 };
 const getAllBookings = async (): Promise<IBooking[]> => {
-      const bookings = await Booking.find({}).populate('trainee').populate('schedule').populate('trainer');
+      const bookings = await Booking.find({})
+        .populate('trainee')
+        .populate({
+          path: 'schedule',
+          populate: {
+            path: 'trainer',
+            select: 'name email _id ' // specify the fields you want to include from the trainer
+          }
+        });
       return bookings;
 };
 const getAllMyBookings = async (traineeId: string): Promise<IBooking[]> => {
       console.log(traineeId,"=============================");
       const bookings = await Booking.find({ trainee: traineeId })
             .populate('trainee', 'name email')
-            .populate('schedule')
-            .populate('trainer');
+            .populate({
+              path: 'schedule',
+              populate: {
+                path: 'trainer',
+                select: 'name email _id' // specify the fields you want to include from the trainer
+              }
+            });
       return bookings;
 };
 const updateBookingStatus = async (id: string, status: string): Promise<IBooking> => {
