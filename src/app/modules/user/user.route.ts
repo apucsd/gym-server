@@ -25,6 +25,8 @@ router
         UserController.updateProfile,
     );
 
+    router.route('/update-user-by-id').patch(auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN), UserController.updateUserById);
+
 
 // get all users
 router.route('/all-user').get(auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN), UserController.getAllUsers);

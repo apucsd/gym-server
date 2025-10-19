@@ -21,17 +21,17 @@ router.post(
 // ADMIN or TRAINER can view bookings
 router.get(
   '/',
-  auth(USER_ROLES.ADMIN, USER_ROLES.TRAINER),
+  auth(USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.TRAINER),
   BookingController.getAllBookings
 );
 router.patch(
   '/:id',
-  auth(USER_ROLES.ADMIN, USER_ROLES.TRAINER),
+  auth(USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.TRAINER),
   BookingController.updateBookingStatus
 );
 
 //
-router.get('/my-bookings', auth(USER_ROLES.TRAINEE), BookingController.getAllMyBookings);
+router.get('/my-bookings', auth(USER_ROLES.TRAINEE, USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.TRAINER), BookingController.getAllMyBookings);
 
 
 

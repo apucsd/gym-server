@@ -75,6 +75,18 @@ const updateProfile = catchAsync(async (req: Request, res: Response, next: NextF
     });
 });
 
+const updateUserById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { ...userData } = req.body;
+    const result = await UserService.updateUserByIdToDB(req.params.id, userData);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: StatusCodes.OK,
+        message: 'User updated successfully',
+        data: result,
+    });
+});
+
 const getAllTrainers = catchAsync(async (req: Request, res: Response) => {
     const { data, meta } = await UserService.getAllTrainerFromDB(req.query);
 
@@ -94,5 +106,6 @@ export const UserController = {
     getUserProfile,
     updateProfile,
     getAllUsers,
+    updateUserById,
     getAllTrainers,
 };

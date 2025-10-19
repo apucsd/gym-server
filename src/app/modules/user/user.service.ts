@@ -166,6 +166,15 @@ const deleteAccountFromDB = async (email: string, password: string) => {
 
     return result;
 };
+
+const updateUserByIdToDB = async (id: string, payload: Partial<IUser>): Promise<Partial<IUser | null>> => {
+    const result = await User.findOneAndUpdate({ _id: id }, payload, {
+        new: true,
+    });
+
+    return result;
+};
+
 const updateStatusIntoDB = async (id: string, status: string) => {
     const result = await User.findOneAndUpdate(
         { _id: id },
@@ -195,4 +204,5 @@ export const UserService = {
     getAllAdminFromDB,
     updateStatusIntoDB,
     getAllTrainerFromDB,
+    updateUserByIdToDB,
 };
