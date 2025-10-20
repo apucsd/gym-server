@@ -1,20 +1,29 @@
+<p align="center">
+  <a href="https://gym360bd.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Frontend-Live-green?style=for-the-badge&logo=vercel" alt="Frontend Live" />
+  </a>
+  <a href="https://gym-server-br2c.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/Backend-Live-blue?style=for-the-badge&logo=render" alt="Backend Live" />
+  </a>
+</p>
+
 # Project Title: Gym Management System
 
 ## Live Demo
 
-You can access the live version of the project here: [Live Link](https://gym-management-ecru.vercel.app/)
+You can access the live version of the project here: [Live Link](https://gym360bd.vercel.app)
 
 ## Entity-Relationship (ER) Diagram
 
 Here is the ER diagram of the project to help visualize the database structure.
 
-![ER Diagram](./uploads/images/er-diagram.png)
+![ER Diagram](https://i.ibb.co.com/gLXkkL9W/er-diagram.png)
 
 ## Installation and Setup
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Nasir1290/gym-server.git
+    git clone https://github.com/apucsd/gym-server
     ```
 
 **Create a `.env` file:**
@@ -24,7 +33,7 @@ In the root directory of the project, create a `.env` file and add the following
 ```env
 # Basic
 NODE_ENV=production
-DATABASE_URL=mongodb+srv://gym:gym@mydatabase.nhior4u.mongodb.net/gym?retryWrites=true&w=majority&appName=MyDataBase
+DATABASE_URL=''
 IP_ADDRESS=192.168.1.113
 PORT=4000
 BCRYPT_SALT_ROUNDS=12
@@ -44,6 +53,44 @@ JWT_RESET_TOKEN_EXPIRED_IN = 1h
 -   **Data Validation:** Robust data validation using Zod and Mongoose s
 -   **Logging:** Logging with Winston and file rotation using DailyRotateFile.
 -   **API Request Logging:** Logging API requests using Morgan.
+
+## API Documentation
+
+### Auth APIs (`/api/v1/auth`)
+- `POST /login`: User login (JWT, sets refresh token cookie)
+- `POST /refresh-token`: Get new access token using refresh token
+- `POST /forget-password`: Request password reset OTP via email
+- `POST /verify-otp`: Verify OTP sent to email
+- `POST /resend-otp`: Resend OTP to email
+- `POST /reset-password`: Reset password using OTP
+- `POST /change-password`: Change password (requires authentication)
+
+### Booking APIs (`/api/v1/booking`)
+- `POST /`: Create a booking (Trainee only)
+- `GET /`: Get all bookings (Admin, Super Admin, Trainer)
+- `GET /my-bookings`: Get bookings for the logged-in user (Trainee, Admin, Trainer, Super Admin)
+- `PATCH /:id`: Update booking status (Admin, Super Admin, Trainer)
+
+### Class APIs (`/api/v1/class`)
+- `POST /create-class`: Create a gym class (validates trainer/trainees, 2-hour duration, ≤10 trainees)
+- `PATCH /update-class`: Update gym class details
+- `PATCH /`: Get all gym classes (pagination, filter by date)
+
+### Schedule APIs (`/api/v1/schedule`)
+- `POST /`: Create a schedule
+- `GET /`: Get all schedules
+- `GET /:id`: Get schedule by ID
+- `PATCH /:id`: Update schedule by ID
+- `DELETE /:id`: Delete schedule by ID
+
+### User APIs (`/api/v1/user`)
+- `GET /profile`: Get logged-in user's profile
+- `POST /create-user`: Create a new user
+- `PATCH /update-profile`: Update logged-in user's profile (with file upload)
+- `PATCH /update-user-by-id/:id`: Update user by ID (Admin, Super Admin)
+- `GET /all-user`: Get all users (Admin, Super Admin)
+- `GET /all-trainer`: Get all trainers (Admin, Super Admin)
+
 
 ## Tech Stack
 
@@ -78,8 +125,8 @@ Ensure you have the following installed:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/your-repository.git
-    cd your-repository
+    git clone https://github.com/apucsd/gym-server.git
+    cd gym-server
     ```
 
 2. **Install dependencies:**
@@ -120,4 +167,4 @@ npm test
 
 ---
 
-Made with ❤️ by [Nasir Mollah](https://nasirmollah.vercel.app)
+Made with ❤️ by [Apu Sutra Dhar](https://apusutradhar.vercel.app)
