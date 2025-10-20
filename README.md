@@ -65,25 +65,25 @@ JWT_RESET_TOKEN_EXPIRED_IN = 1h
 - `POST /reset-password`: Reset password using OTP
 - `POST /change-password`: Change password (requires authentication)
 
-### Booking APIs (`/api/v1/booking`)
+### Booking APIs (`/api/v1/bookings`)
 - `POST /`: Create a booking (Trainee only)
 - `GET /`: Get all bookings (Admin, Super Admin, Trainer)
 - `GET /my-bookings`: Get bookings for the logged-in user (Trainee, Admin, Trainer, Super Admin)
 - `PATCH /:id`: Update booking status (Admin, Super Admin, Trainer)
 
-### Class APIs (`/api/v1/class`)
+### Class APIs (`/api/v1/classes`)
 - `POST /create-class`: Create a gym class (validates trainer/trainees, 2-hour duration, ≤10 trainees)
 - `PATCH /update-class`: Update gym class details
 - `PATCH /`: Get all gym classes (pagination, filter by date)
 
-### Schedule APIs (`/api/v1/schedule`)
+### Schedule APIs (`/api/v1/schedules`)
 - `POST /`: Create a schedule
 - `GET /`: Get all schedules
 - `GET /:id`: Get schedule by ID
 - `PATCH /:id`: Update schedule by ID
 - `DELETE /:id`: Delete schedule by ID
 
-### User APIs (`/api/v1/user`)
+### User APIs (`/api/v1/users`)
 - `GET /profile`: Get logged-in user's profile
 - `POST /create-user`: Create a new user
 - `PATCH /update-profile`: Update logged-in user's profile (with file upload)
